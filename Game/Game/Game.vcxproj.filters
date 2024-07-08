@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="source\Source\Application\ApplicationMain.cpp" />
+    <ClCompile Include="source\Source\Mode\ModeGame.cpp" />
+    <ClCompile Include="source\Source\Object\Base\ObjectBase.cpp" />
+    <ClCompile Include="source\Source\Manager\PlayerManager.cpp" />
+    <ClCompile Include="source\Source\Manager\RenderManager.cpp" />
+    <ClCompile Include="source\Source\Manager\SuperManager.cpp" />
+    <ClCompile Include="source\Source\Manager\ManagerBase.cpp" />
+    <ClCompile Include="source\Source\Manager\ObjectManager.cpp" />
+    <ClCompile Include="source\Source\Other\Camera\Camera.cpp" />
+    <ClCompile Include="source\Source\Manager\CollisionManager.cpp" />
+    <ClCompile Include="source\Source\UI\Base\UIBase.cpp" />
+    <ClCompile Include="source\Source\Manager\UIManager.cpp" />
+    <ClCompile Include="source\Source\Mode\ModeTitle.cpp" />
+    <ClCompile Include="source\Source\Mode\ModeFadeComeBack.cpp" />
+    <ClCompile Include="source\Source\Mode\ModeFade.cpp" />
+    <ClCompile Include="source\Source\UI\Base\UIRotaBase.cpp" />
+    <ClCompile Include="source\Source\UI\Animation\LocationAnim.cpp" />
+    <ClCompile Include="source\Source\UI\Animation\AnimationBase.cpp" />
+    <ClCompile Include="source\Source\UI\Animation\IterationAnim.cpp" />
+    <ClCompile Include="source\Source\Model\Base\ModelBase.cpp" />
+    <ClCompile Include="source\Source\Model\RimLightModel.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\Header\Object\Base\ObjectBase.h" />
+    <ClInclude Include="source\Header\Application\ApplicationMain.h" />
+    <ClInclude Include="source\Header\Mode\ModeGame.h" />
+    <ClInclude Include="source\Header\Manager\PlayerManager.h" />
+    <ClInclude Include="source\Header\Manager\RenderManager.h" />
+    <ClInclude Include="source\Header\Manager\SuperManager.h" />
+    <ClInclude Include="source\Header\Manager\ManagerBase.h" />
+    <ClInclude Include="source\Header\Manager\ObjectManager.h" />
+    <ClInclude Include="source\Header\Other\Camera\Camera.h" />
+    <ClInclude Include="source\Header\Manager\CollisionManager.h" />
+    <ClInclude Include="source\Header\UI\Base\UIBase.h" />
+    <ClInclude Include="source\Header\Manager\UIManager.h" />
+    <ClInclude Include="source\Header\Mode\ModeTitle.h" />
+    <ClInclude Include="source\Header\Mode\ModeFadeComeBack.h" />
+    <ClInclude Include="source\Header\Mode\ModeFade.h" />
+    <ClInclude Include="source\Header\UI\Base\UIRotaBase.h" />
+    <ClInclude Include="source\Header\UI\Animation\LocationAnim.h" />
+    <ClInclude Include="source\Header\UI\Animation\AnimationBase.h" />
+    <ClInclude Include="source\Header\UI\Animation\IterationAnim.h" />
+    <ClInclude Include="source\Header\Model\Base\ModelBase.h" />
+    <ClInclude Include="source\Header\Model\RimLightModel.h" />
+  </ItemGroup>
+</Project>

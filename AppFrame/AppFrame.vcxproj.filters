@@ -62,6 +62,7 @@
     <ClCompile Include="source\System\Source\Sound\SoundItem.cpp" />
     <ClCompile Include="source\System\Source\Sound\SoundServer.cpp" />
     <ClCompile Include="source\System\Source\Input\InputManeger.cpp" />
+    <ClCompile Include="source\System\Source\Function\Quaternion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Application\ApplicationBase.h">
@@ -106,5 +107,6 @@
     <ClInclude Include="source\System\Header\Input\XInput.h" />
     <ClInclude Include="source\System\Header\Input\InputManeger.h" />
     <ClInclude Include="MemoryLeak.h" />
+    <ClInclude Include="source\System\Header\Function\Quaternion.h" />
   </ItemGroup>
 </Project>

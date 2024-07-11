@@ -163,6 +163,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\System\Source\Function\Quaternion.cpp" />
     <ClCompile Include="source\System\Source\Input\InputManeger.cpp" />
     <ClCompile Include="source\System\Source\Function\Vibration.cpp" />
     <ClCompile Include="source\System\Source\Collision\MyStructure.cpp" />
@@ -189,6 +190,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MemoryLeak.h" />
+    <ClInclude Include="source\System\Header\Function\Quaternion.h" />
     <ClInclude Include="source\System\Header\Input\InputManeger.h" />
     <ClInclude Include="source\System\Header\Function\DrawGauge.h" />
     <ClInclude Include="source\System\Header\Function\mymath.h" />

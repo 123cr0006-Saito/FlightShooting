@@ -20,7 +20,6 @@ public:
 	virtual bool Process()override;
 	virtual bool Render()override;
 protected:
-	class UIFade* _ui;
 	int _alphaFade;// フェードのアルファ値
 	int _currentTime;// 現在の時間
 	int _fadeTime;// フェードする時間

@@ -25,6 +25,5 @@ private:
 	Vector3D _speed;
 	bool _isGame;
 	int _currentTime;
-	class PlayerManager* _player;
 };
 

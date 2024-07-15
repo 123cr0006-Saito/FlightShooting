@@ -1,6 +1,5 @@
 #include "../../Header/Application/ApplicationMain.h"
 #include "../../Header/Mode/ModeGame.h"
-#include "../../Header/Mode/ModeSelectPlayer.h"
 #include "../../Header/Mode/ModeTitle.h"
 #include "../../Header/Manager/SuperManager.h"
 #include "../../Header/Manager/RenderManager.h"
@@ -33,7 +32,7 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	_superManager->Add("uiManager", 1000, uiManager);
 
 	// ƒ‚[ƒh‚Ì“o˜^
-	ModeServer::GetInstance()->Add(NEW ModeTitle(), 1, "ModeTitle");
+	ModeServer::GetInstance()->Add(NEW ModeGame(), 1, "ModeTitle");
 	return true;
 }
 

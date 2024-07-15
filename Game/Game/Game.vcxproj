@@ -32,7 +32,6 @@
     <ClCompile Include="source\Source\Manager\ObjectManager.cpp" />
     <ClCompile Include="source\Source\Manager\ManagerBase.cpp" />
     <ClCompile Include="source\Source\Manager\RenderManager.cpp" />
-    <ClCompile Include="source\Source\Manager\PlayerManager.cpp" />
     <ClCompile Include="source\Source\Application\ApplicationMain.cpp" />
     <ClCompile Include="source\Source\Mode\ModeGame.cpp" />
     <ClCompile Include="source\Source\Object\Base\ObjectBase.cpp" />
@@ -55,7 +54,6 @@
     <ClInclude Include="source\Header\Manager\ObjectManager.h" />
     <ClInclude Include="source\Header\Manager\ManagerBase.h" />
     <ClInclude Include="source\Header\Manager\RenderManager.h" />
-    <ClInclude Include="source\Header\Manager\PlayerManager.h" />
     <ClInclude Include="source\Header\Object\Base\ObjectBase.h" />
     <ClInclude Include="source\Header\Application\ApplicationMain.h" />
     <ClInclude Include="source\Header\Mode\ModeGame.h" />

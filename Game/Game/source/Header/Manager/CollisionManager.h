@@ -17,8 +17,7 @@ public:
 	bool Update()override;
 	bool Draw()override;
 
-	bool CollisionCheckForPlayer(CollisionBase*);
-	bool CollisionCheckForBall(CollisionBase*);
+
 
 protected:
 	std::vector<CollisionBase*> _addCollisionList;

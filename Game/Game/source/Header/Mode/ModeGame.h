@@ -9,6 +9,7 @@
 #include "appframe.h"
 #include "dxlib.h"
 #include "../../../AppFrame/source/Application/UtilMacro.h"
+#include "../../AppFrame/source/System/Header/Function/Quaternion.h"
 
 class ModeGame : public ModeBase
 {
@@ -24,16 +25,15 @@ public:
 
 	bool LoadObject();
 	bool LoadUI();
-	void ReSetGame();
 	std::vector<std::tuple<std::string, Vector3D, Vector3D>> LoadObjectParam(std::string fileName);
 protected:
 	class SuperManager* _superManager;
-	class Player* _player;
-	class Camera* _camera;
-	class Score* _score;
-	class TimeLimit* _timeLimit;
-	std::vector<std::string> _objectName;
 
-	bool _isAddBall;
-	int _currentTime;
+	XInput* input;
+	int jetModel;
+	int skySphere;
+	Quaternion cameraQuaternion;
+	Quaternion origin;
+	Vector3D pos;
+	bool isCameraBack;
 };

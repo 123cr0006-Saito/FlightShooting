@@ -5,6 +5,13 @@ Quaternion::Quaternion(){
 	identity();
 };
 
+Quaternion::Quaternion(float w, float x, float y, float z) {
+	this->w = w;
+	this->x = x;
+	this->y = y;
+	this->z = z;
+};
+
 void	Quaternion::SetToRotateX(float theta){
 	// 	半角に変換する
 	float thetaOver2 = theta * 0.5f; 
@@ -148,6 +155,29 @@ Quaternion& Quaternion::operator *=(const Quaternion& q){
 	return *this;
 };
 
+Vector3D Quaternion::byEuler() {
+	// クォータニオンをz-y-x系オイラー角に変換
+	float roll, pitch, yaw;
+	float sin, cos;
+
+	// roll X軸回転
+	sin = 2 * (w * x + y * z);//32
+	cos = 1 - 2 * (x * x + y * y);//33
+	roll = atan2(sin, cos);
+
+	// pitch Y軸回転
+	sin = sqrt(1 + 2 * (w * y - x * z));//31
+	cos = sqrt(1 - 2 * (w * y - x * z));//31
+	pitch = 2 * atan2(sin, cos) - PI / 2;
+
+	// yaw Z軸回転
+	sin = 2 * (w * z + x * y);//21
+	cos = 1 - 2 * (y * y + z * z);//11
+	yaw = atan2(sin, cos);
+
+	return Vector3D(roll, pitch, yaw);
+};
+
 float Dot(const Quaternion& left, const Quaternion& right){
 	return left.w * right.w + left.x * right.x + left.y * right.y + left.z * right.z;
 };
@@ -185,6 +215,14 @@ Quaternion Pow(const Quaternion& q, float exponent){
 	result.z = q.z * mult;
 
 	return result;
+};
+
+Vector3D RotateVectorByQuaternion(const Vector3D& v, const Quaternion& q) {
+	// クォータニオンとベクトルの積　q*v*q^-1 より
+	Quaternion conjQuat = Conjugate(q);
+	Quaternion vecQuat = Quaternion(0,v.x,v.y,v.z);
+	Quaternion result = q * vecQuat * conjQuat;
+	return Vector3D(result.x, result.y, result.z);
 };
 
 Quaternion Slerp(const Quaternion& p, const Quaternion& q, float t) {

@@ -8,7 +8,7 @@
 #include "../AppFrame/source/Mode/ModeServer.h"
 #include "../../Header/Manager/SuperManager.h"
 #include "../../Header/Manager/UIManager.h"
-#include "../../Header/UI/UIFade.h"
+
 #include "../AppFrame/MemoryLeak.h"
 //----------------------------------------------------------------------
 // @brief コンストラクタ
@@ -19,10 +19,9 @@ ModeFade::ModeFade(int time,bool isFadeIn) {
 	_currentTime = GetNowCount();
 	_fadeTime = time;
 	_isFadeIn = isFadeIn;
-	_ui = NEW UIFade(GetColor(0,0,0));
 	// サーバーに追加
 	UIManager* uiManager = dynamic_cast<UIManager*>(SuperManager::GetInstance()->GetManager("uiManager"));
-	uiManager->Add(_ui);
+
 	if (isFadeIn) {
 		_alphaFade = 255;
 	}
@@ -65,7 +64,7 @@ bool ModeFade::Process() {
 		_alphaFade = Easing::Linear(GetNowCount() - _currentTime, 0, 255, _fadeTime);
 	}
 
-	_ui->SetAlpha(_alphaFade);
+	
 	// 時間経過で削除
 	if (GetNowCount() - _currentTime > _fadeTime) {
 		ModeServer::GetInstance()->Del(this);

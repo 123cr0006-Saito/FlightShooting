@@ -8,7 +8,6 @@
 //----------------------------------------------------------------------
 #include "../../Header/Mode/ModeFadeComeBack.h"
 #include "../AppFrame/source/Mode/ModeServer.h"
-#include "../../Header/UI/UIFade.h"
 //----------------------------------------------------------------------
 // @brief コンストラクタ
 // @param Time フェード時間
@@ -112,7 +111,7 @@ bool ModeFadeComeBack::Process(){
 		// フェード終了 削除
 		ModeServer::GetInstance()->Del(this);
 	}
-	_ui->SetAlpha(_alphaFade);
+
 	return true;
 };
 //----------------------------------------------------------------------

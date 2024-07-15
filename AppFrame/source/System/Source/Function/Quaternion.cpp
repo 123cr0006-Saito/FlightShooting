@@ -178,6 +178,31 @@ Vector3D Quaternion::byEuler() {
 	return Vector3D(roll, pitch, yaw);
 };
 
+MATRIX Quaternion::byDxlibMatrix(){
+	MATRIX m;
+	m.m[0][0] = 1 - 2 * (y * y) - 2 * (z * z);
+	m.m[0][1] = (2 * x * y) - (2 * z * w);
+	m.m[0][2] = (2 * x * z) + (2 * y * w);
+	m.m[0][3] = 0;
+
+	m.m[1][0] = (2 * x * y) + (2 * z * w);
+	m.m[1][1] = 1 - 2 * (x * x) - 2 * (z * z);
+	m.m[1][2] = (2 * y * z) - (2 * x * w);
+	m.m[1][3] = 0;
+
+	m.m[2][0] = (2 * x * z) - (2 * y * w);
+	m.m[2][1] = (2 * y * z) + (2 * x * w);
+	m.m[2][2] = 1 - 2 * (x * x) - 2 * (y * y);
+	m.m[2][3] = 0;
+
+	m.m[3][0] = 0;
+	m.m[3][1] = 0;
+	m.m[3][2] = 0;
+	m.m[3][3] = 1;
+
+	return m;
+};
+
 float Dot(const Quaternion& left, const Quaternion& right){
 	return left.w * right.w + left.x * right.x + left.y * right.y + left.z * right.z;
 };

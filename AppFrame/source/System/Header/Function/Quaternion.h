@@ -28,6 +28,8 @@ public:
 
 	Vector3D byEuler();
 
+	MATRIX byDxlibMatrix();
+
 public:
 	float w, x, y, z;
 };

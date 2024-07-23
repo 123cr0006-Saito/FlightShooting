@@ -164,6 +164,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\System\Source\Function\Quaternion.cpp" />
+    <ClCompile Include="source\System\Source\Function\Spline.cpp" />
     <ClCompile Include="source\System\Source\Input\InputManeger.cpp" />
     <ClCompile Include="source\System\Source\Function\Vibration.cpp" />
     <ClCompile Include="source\System\Source\Collision\MyStructure.cpp" />
@@ -216,6 +217,7 @@
     <ClInclude Include="source\System\Header\Function\Easing.h" />
     <ClInclude Include="source\System\Header\Sound\SoundItem.h" />
     <ClInclude Include="source\System\Header\Sound\SoundServer.h" />
+    <ClInclude Include="source\System\Header\Function\Spline.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

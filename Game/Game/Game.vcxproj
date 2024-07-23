@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="source\Source\Model\RimLightModel.cpp" />
     <ClCompile Include="source\Source\Model\Base\ModelBase.cpp" />
+    <ClCompile Include="source\Source\ModeSpline.cpp" />
+    <ClCompile Include="source\Source\SplineBox.cpp" />
     <ClCompile Include="source\Source\UI\Animation\IterationAnim.cpp" />
     <ClCompile Include="source\Source\UI\Animation\AnimationBase.cpp" />
     <ClCompile Include="source\Source\UI\Animation\LocationAnim.cpp" />
@@ -43,6 +45,8 @@
   <ItemGroup>
     <ClInclude Include="source\Header\Model\RimLightModel.h" />
     <ClInclude Include="source\Header\Model\Base\ModelBase.h" />
+    <ClInclude Include="source\Header\ModeSpline.h" />
+    <ClInclude Include="source\Header\SplineBox.h" />
     <ClInclude Include="source\Header\UI\Animation\IterationAnim.h" />
     <ClInclude Include="source\Header\UI\Animation\AnimationBase.h" />
     <ClInclude Include="source\Header\UI\Animation\LocationAnim.h" />

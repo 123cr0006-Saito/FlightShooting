@@ -62,4 +62,7 @@ public:
 	//オーバーロード
 	static bool OBBCapsuleCol(OBB obb, Capsule capsule, Vector3D* hitPos = nullptr);
 
+	//線分とOBBの当たり判定
+	static bool SegmentOBB(Vector3D line_start, Vector3D line_end, OBB obb);
+
 };

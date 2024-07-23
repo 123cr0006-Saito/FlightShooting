@@ -52,6 +52,8 @@ public:
 	CollisionBase(std::string name, ObjectBase* object) { this->name = name; this->object = object; isHit = false; isHitOld = false;};
 	virtual ~CollisionBase() {};
 	void SetName(std::string name) { this->name = name; }
+	virtual void Update(){ isHitOld = isHit; isHit = false; };
+	virtual void Update(Vector3D pos) { isHitOld = isHit; isHit = false; this->pos = pos;}
 	virtual void Render(unsigned int color) = 0;
 	std::string GetName() { return name; }
 	ObjectBase* GetObje() { return object; }
@@ -155,7 +157,7 @@ public:
 			direction[i] = 0;
 		}
 	};
-	void Update() {
+	void Update()override {
 		up_pos = pos + Vector3D(0,up,0);
 	};
 

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _IS_LOAD_APPFRAME
+#define _IS_LOAD_APPFRAME
+
 #pragma comment(lib,"AppFrame.lib")
 
 #include "DxLib.h"
@@ -16,6 +19,7 @@
 //System
 // Input
 #include "System/Header/Input/XInput.h"
+#include "System/Header/Input/Mouse.h"
 //Sound
 #include "System/Header/Sound/SoundItem.h"
 #include "System/Header/Sound/SoundServer.h"
@@ -35,3 +39,8 @@
 //Global
 #include "Application/Global.h"
 #include "System/Header/Resource/ResourceServer.h"
+
+#include "System/Header/Function/Spline.h"
+#include "System/Header/Function/Quaternion.h"
+
+#endif

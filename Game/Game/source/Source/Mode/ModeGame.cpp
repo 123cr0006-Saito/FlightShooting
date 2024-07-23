@@ -18,6 +18,8 @@
 
 #include "../../Header/Other/Camera/Camera.h"
 
+#include "../../Header/ModeSpline.h"
+
 //----------------------------------------------------------------------
 // @brief コンストラクタ
 // @return 無し
@@ -47,7 +49,7 @@ bool ModeGame::Initialize() {
 	MV1SetPosition(jetModel, VGet(0, 0, 0));
 	MV1SetPosition(skySphere, VGet(0, 0, 0));
 	MV1SetScale(skySphere, (Vector3D(1, 1, 1) * 3).toVECTOR());
-
+	SetCameraNearFar(1.0f, 1000000.0f);
 	input = new XInput();
 	isCameraBack = true;
 
@@ -119,6 +121,7 @@ std::vector<std::tuple<std::string, Vector3D, Vector3D>> ModeGame::LoadObjectPar
 bool ModeGame::Process() {
 	base::Process();
 	input->Input();
+	
 	// 時間制限の処理
 	float x, y, z;
 	Quaternion qx, qy, qz;
@@ -139,6 +142,10 @@ bool ModeGame::Process() {
 	MV1SetPosition(jetModel, pos.toVECTOR());
 
 	if (input->GetTrg(XINPUT_BUTTON_DPAD_DOWN)) { isCameraBack = !isCameraBack; }
+
+	if (input->GetTrg(XINPUT_BUTTON_START)) {
+		ModeServer::GetInstance()->Add(new ModeSpline(input,pos) , 1000,"spline");
+	}
 
 	if (isCameraBack) {
 		Vector3D upVec = RotateVectorByQuaternion(Vector3D(0, 1, 0), origin);

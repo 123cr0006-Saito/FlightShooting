@@ -64,6 +64,7 @@
     <ClCompile Include="source\System\Source\Input\InputManeger.cpp" />
     <ClCompile Include="source\System\Source\Function\Quaternion.cpp" />
     <ClCompile Include="source\System\Source\Function\Spline.cpp" />
+    <ClCompile Include="source\System\Source\Input\Mouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Application\ApplicationBase.h">
@@ -110,5 +111,6 @@
     <ClInclude Include="MemoryLeak.h" />
     <ClInclude Include="source\System\Header\Function\Quaternion.h" />
     <ClInclude Include="source\System\Header\Function\Spline.h" />
+    <ClInclude Include="source\System\Header\Input\Mouse.h" />
   </ItemGroup>
 </Project>

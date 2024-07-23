@@ -464,3 +464,13 @@ bool Collision3D::OBBCapsuleCol(OBB obb, Vector3D line_start, Vector3D line_end,
 bool Collision3D::OBBCapsuleCol(OBB obb, Capsule capsule, Vector3D* hitPos) {
 	return OBBCapsuleCol(obb, capsule.pos, capsule.up_pos, capsule.r, hitPos);
 }
+
+bool Collision3D::SegmentOBB(Vector3D line_start, Vector3D line_end, OBB obb){
+	for(int i = 0; i < 3; i++){
+		TWOLINE_SHORT value = Collision3D::TwoSegmentShortPoint(line_start, line_end, obb.pos, obb.pos + obb.dir_vec[i] * obb.length[i]);
+		if (value.length > obb.length[i]/2) {
+			return false;
+		}
+	}
+	return true;
+};

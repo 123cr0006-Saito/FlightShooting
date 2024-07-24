@@ -114,7 +114,7 @@ Vector3D Spline::BSpline(const std::vector<Vector3D>& point, int k, double time)
 		}
 	}
 
-	double t = Math::Max(0.0, Math::Min(1.0, time)) * (n - k + 2);
+	double t = Math::Max(0.0, Math::Min(0.999f, time)) * (n - k + 2);
 
 	Vector3D result;
 	for (int i = 0; i <= n; ++i) {
@@ -135,7 +135,7 @@ Vector3D Spline::CatmullRomSpline(const std::vector<Vector3D>& point, double tim
 #endif
 
 	// ‚Ç‚ÌƒZƒOƒƒ“ƒg‚É‘®‚·‚é‚©‚ğŒˆ’è
-	double t = Math::Clamp(0.0f, 1.0f, time) * (point.size() - 3);
+	double t = Math::Clamp(0.0f, 0.999f, time) * (point.size() - 3);
 	int segment = static_cast<int>(t);
 	t -= segment;
 

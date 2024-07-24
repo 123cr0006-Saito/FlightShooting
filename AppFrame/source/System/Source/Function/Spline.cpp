@@ -69,7 +69,7 @@ Vector3D Spline::CubicSpline(const std::vector<Vector3D>& point, double time){
 	Vector3D p2 = point[segment + 2];
 	Vector3D p3 = point[segment + 3];
 
-	// ŒöŽ® : p(t) = (1 - t)^3 * p0 + 3 * (1 - t)^2 * t * p1 + 3 * (1 - t)t^2 * p2 + t^3 * p3
+	// ŒöŽ® : p(t) = (1 - t)^3 * p0 + 3(1 - t)^2 * t * p1 + 3(1 - t)t^2 * p2 + t^3 * p3
 	double t2 = t * t;
 	double t3 = t * t * t;
 
@@ -144,7 +144,7 @@ Vector3D Spline::CatmullRomSpline(const std::vector<Vector3D>& point, double tim
 	Vector3D p2 = point[segment + 2];
 	Vector3D p3 = point[segment + 3];
 
-	// ŒöŽ® : p(t) = 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t^2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t^3)
+	// ŒöŽ® : p(t) = 0.5((2p1) + (-p0 + p2)t + (2p0 - 5p1 + 4p2 - p3) * t^2 + (-p0 + 3p1 - 3p2 + p3) * t^3)
 	double t2 = t * t;
 	double t3 = t * t * t;
 

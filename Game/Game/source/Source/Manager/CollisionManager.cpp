@@ -5,6 +5,7 @@
 // 当たり判定とそのリアクションを行うクラス
 //----------------------------------------------------------------------
 #include "../../Header/Manager/CollisionManager.h"
+#include "../../Header/Manager/SuperManager.h"
 #include "../../AppFrame/source/Application/UtilMacro.h"
 #include "../../AppFrame/source/System/Header/Collision/3DCollision.h"
 #include "../AppFrame/source/Mode/ModeServer.h"
@@ -124,6 +125,20 @@ bool CollisionManager::Update(){
 	
 	UpdateInit();
 
+	for(auto&& first : _collisionList){
+		if (first->GetName() == "bullet") {
+			Sphere* bullet = static_cast<Sphere*>(first);
+			for (auto&& second : _collisionList) {
+				if (second->GetName() == "target") {
+					Sphere* target = static_cast<Sphere*>(second);
+					if (Collision3D::SphereCol((*bullet), (*target))) {
+						SuperManager::GetInstance()->GetManager("objectManager")->DeleteInput(bullet->GetObje());
+						SuperManager::GetInstance()->GetManager("objectManager")->DeleteInput(target->GetObje());
+					}
+				}
+			}
+		}
+	}
 
 	return true;
 };
@@ -133,9 +148,9 @@ bool CollisionManager::Update(){
 //----------------------------------------------------------------------
 bool CollisionManager::Draw(){
 #ifdef _DEBUG
-	for (auto&& list : _collisionList) {
+	/*for (auto&& list : _collisionList) {
 		list->Render(0xff0000);
-	}
+	}*/
 #endif
 	return true;
 };

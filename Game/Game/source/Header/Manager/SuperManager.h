@@ -3,16 +3,17 @@
 #include <string>
 #include <tuple>
 #include <utility>
+#include "ManagerBase.h"
 
 class SuperManager 
 {
 public:
 	SuperManager();
 	~SuperManager();
-	bool Add(std::string name, int id,class ManagerBase* manager);
+	bool Add(std::string name, int id,ManagerBase* manager);
 	bool DeleteName(std::string);
 	bool DelAll();
-	class ManagerBase* GetManager(std::string name);
+	ManagerBase* GetManager(std::string name);
 	bool Update();
 	bool Draw();
 
@@ -22,7 +23,7 @@ public:
 protected:
 	static SuperManager* _instance;
 	bool _isSort;
-	std::vector<std::tuple<std::string,int,class ManagerBase*>> _superManager;
+	std::vector<std::tuple<std::string,int,ManagerBase*>> _superManager;
 	std::vector<std::string> _delSuperManager;
 	bool _isProcessSkip;
 };

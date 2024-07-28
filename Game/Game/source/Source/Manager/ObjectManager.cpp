@@ -135,11 +135,11 @@ bool ObjectManager::UpdateEnd()
 // @return ¬Œ÷‚µ‚½‚©‚Ç‚¤‚©
 //----------------------------------------------------------------------
 bool ObjectManager::Draw() {
-#ifdef _DEBUG
+
 	for (auto&& list : _objectList) {
-		list->DebugDraw();
+		list->Draw();
 	}
-#endif
+
 	return true;
 };
 //----------------------------------------------------------------------

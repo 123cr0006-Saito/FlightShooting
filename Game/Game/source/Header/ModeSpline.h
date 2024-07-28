@@ -16,7 +16,8 @@ enum class ModeType : int
 	AddPoint,
 	Remove,
 	Save,
-	Time
+	Time,
+	Speed
 };
 
 enum class SplineType : int
@@ -52,7 +53,9 @@ protected:
 	SplineBox* _splineBox;
 	float distance = 0.f;
 	Vector3D _cameraAngle;
+
 	int _timePickPosX;
+	int _speedPickPosX;
 
 	MoveType _moveType;
 	ModeType _modeType;
@@ -61,6 +64,7 @@ protected:
 	XInput* input;
 
 	float _time = 0.0f;
+	float _timeSpeed = 0.01f;
 
 	bool _isPlay;
 };

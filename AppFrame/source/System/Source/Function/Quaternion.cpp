@@ -42,6 +42,24 @@ void	Quaternion::SetToRotateZ(float theta){
 	z = sin(thetaOver2);
 };
 
+Quaternion Quaternion::CreateRotateX(float theta){
+	Quaternion q;
+	q.SetToRotateX(theta);
+	return q;
+};
+
+Quaternion Quaternion::CreateRotateY(float theta){
+	Quaternion q;
+	q.SetToRotateY(theta);
+	return q;
+};
+
+Quaternion Quaternion::CreateRotateZ(float theta){
+	Quaternion q;
+	q.SetToRotateZ(theta);
+	return q;
+};
+
 void	Quaternion::SetToRotateAxis(const Vector3D& axis, float theta){
 	// ‰ñ“]²‚ª³‹K‰»‚³‚ê‚Ä‚¢‚È‚©‚Á‚½‚çƒGƒ‰[
 	if(fabs(axis.Len() - 1.0f) < 0.01f) {

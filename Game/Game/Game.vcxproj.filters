@@ -23,6 +23,9 @@
     <ClCompile Include="source\Source\Model\RimLightModel.cpp" />
     <ClCompile Include="source\Source\ModeSpline.cpp" />
     <ClCompile Include="source\Source\SplineBox.cpp" />
+    <ClCompile Include="source\Source\Object\Target.cpp" />
+    <ClCompile Include="source\Source\Object\Jet.cpp" />
+    <ClCompile Include="source\Source\Object\Bullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Header\Object\Base\ObjectBase.h" />
@@ -47,5 +50,8 @@
     <ClInclude Include="source\Header\Model\RimLightModel.h" />
     <ClInclude Include="source\Header\SplineBox.h" />
     <ClInclude Include="source\Header\ModeSpline.h" />
+    <ClInclude Include="source\Header\Object\Target.h" />
+    <ClInclude Include="source\Header\Object\Jet.h" />
+    <ClInclude Include="source\Header\Object\Bullet.h" />
   </ItemGroup>
 </Project>

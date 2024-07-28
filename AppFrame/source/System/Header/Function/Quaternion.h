@@ -10,6 +10,11 @@ public:
 	void	SetToRotateX(float theta);
 	void	SetToRotateY(float theta);
 	void	SetToRotateZ(float theta);
+
+	static Quaternion CreateRotateX(float theta);
+	static Quaternion CreateRotateY(float theta);
+	static Quaternion CreateRotateZ(float theta);
+
 	void	SetToRotateAxis(const Vector3D& axis, float theta);
 
 	void	Normalize();

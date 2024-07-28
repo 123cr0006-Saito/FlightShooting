@@ -1,6 +1,7 @@
 #pragma once
 
 #ifndef _IS_LOAD_APPFRAME
+
 #define _IS_LOAD_APPFRAME
 
 #pragma comment(lib,"AppFrame.lib")

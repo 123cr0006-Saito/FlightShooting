@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Source\Object\Bullet.cpp" />
+    <ClCompile Include="source\Source\Object\Jet.cpp" />
     <ClCompile Include="source\Source\Model\RimLightModel.cpp" />
     <ClCompile Include="source\Source\Model\Base\ModelBase.cpp" />
     <ClCompile Include="source\Source\ModeSpline.cpp" />
@@ -41,8 +43,11 @@
     <ClCompile Include="source\Source\UI\Base\UIBase.cpp" />
     <ClCompile Include="source\Source\Manager\UIManager.cpp" />
     <ClCompile Include="source\Source\UI\Base\UIRotaBase.cpp" />
+    <ClCompile Include="source\Source\Object\Target.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Header\Object\Bullet.h" />
+    <ClInclude Include="source\Header\Object\Jet.h" />
     <ClInclude Include="source\Header\Model\RimLightModel.h" />
     <ClInclude Include="source\Header\Model\Base\ModelBase.h" />
     <ClInclude Include="source\Header\ModeSpline.h" />
@@ -65,6 +70,7 @@
     <ClInclude Include="source\Header\UI\Base\UIBase.h" />
     <ClInclude Include="source\Header\Manager\UIManager.h" />
     <ClInclude Include="source\Header\UI\Base\UIRotaBase.h" />
+    <ClInclude Include="source\Header\Object\Target.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

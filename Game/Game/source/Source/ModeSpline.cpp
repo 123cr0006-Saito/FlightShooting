@@ -41,6 +41,7 @@ bool ModeSpline::Initialize() {
 	_splineType = SplineType::BSpline;
 
 	_timePickPosX = TIME_TICK_X;
+	_speedPickPosX = TIME_TICK_X;
 	_isPlay = false;
 
 	SetCameraNearFar(100.0f, 1000000.0f);
@@ -76,9 +77,10 @@ void ModeSpline::Save(){
 		return;
 	}
 	std::string str;
+	str += std::to_string(_timeSpeed) + "\n";
 	for (int i = 0; i < _pointList.size(); i++) {
 		Vector3D pos = _pointList[i]->GetPos();
-		str+= std::to_string(pos.x) + "," + std::to_string(pos.y) + "," + std::to_string(pos.z) + ",\n";
+		str+= std::to_string(pos.x) + "," + std::to_string(pos.y) + "," + std::to_string(pos.z) + "\n";
 	}
 
 	str = str.substr(0,str.size()-2);//終端文字とカンマ削除
@@ -132,6 +134,11 @@ void ModeSpline::CollisionCheck() {
 		boxX = _timePickPosX - 10, boxY = 40, boxW = _timePickPosX + 10, boxH = 60;
 		if (x > boxX && x < boxX + boxW && y > boxY && y < boxY + boxH) {
 			_modeType = ModeType::Time;
+		}
+
+		boxX = _speedPickPosX - 10, boxY = 80, boxW = _speedPickPosX + 10, boxH = 60;
+		if (x > boxX && x < boxX + boxW && y > boxY && y < boxY + boxH) {
+			_modeType = ModeType::Speed;
 		}
 
 		// モードによって処理を変更
@@ -194,7 +201,7 @@ bool ModeSpline::Process() {
 	}
 
 	if (_isPlay) {
-		_time += 0.01f;
+		_time += _timeSpeed;
 		if (_time > 1.0f) {
 			_time = 0.0f;
 		}
@@ -203,7 +210,7 @@ bool ModeSpline::Process() {
 	if (_mouse->GetRel(MOUTH_LEFT)) {
 		_splineBox = nullptr;
 		_moveType = MoveType::None;
-		if (_modeType == ModeType::Save || _modeType == ModeType::Time){
+		if (_modeType == ModeType::Save || _modeType == ModeType::Time || _modeType == ModeType::Speed) {
 			_modeType = ModeType::Modyfy;
 		}
 	}
@@ -214,6 +221,14 @@ bool ModeSpline::Process() {
 		_timePickPosX = Math::Clamp(TIME_TICK_X, TIME_TICK_X + TIME_TICK_WIDTH, _timePickPosX);
 		_time = static_cast<float>(_timePickPosX - TIME_TICK_X) / TIME_TICK_WIDTH;
 	}
+
+	if (_modeType == ModeType::Speed) {
+		int x = _mouse->GetX();
+		_speedPickPosX = x;
+		_speedPickPosX = Math::Clamp(TIME_TICK_X, TIME_TICK_X + TIME_TICK_WIDTH, _speedPickPosX);
+		_timeSpeed = static_cast<float>(_speedPickPosX - TIME_TICK_X) / TIME_TICK_WIDTH / 100;
+	}
+
 
 	_timePickPosX = TIME_TICK_X + _time * TIME_TICK_WIDTH;
 
@@ -275,7 +290,6 @@ bool ModeSpline::Process() {
 
 bool ModeSpline::Render() {
 	base::Render();
-	//SetUseLighting(false);
 	std::vector<Vector3D> carvePos;
 	std::vector<Vector3D> _pos;
 
@@ -285,7 +299,7 @@ bool ModeSpline::Render() {
 		_pointList[i]->GetOBB()->Render(GetColor(255, 255, 255));
 	}
 
-	int DivNum = 100;
+	int DivNum = 20;
 	for(int i = 0; i < DivNum; i++){
 		if(_splineType == SplineType::BSpline){
 			carvePos.push_back(Spline::BSpline(_pos, _pos.size() , static_cast<double>(i) / DivNum));
@@ -323,11 +337,16 @@ bool ModeSpline::Render() {
 		x += w + 10;
 	}
 
-	DrawBox(TIME_TICK_X - 30 ,25, TIME_TICK_X + TIME_TICK_WIDTH + 130,75, GetColor(128, 128, 128),true);
-
-	DrawBox(TIME_TICK_X, 40, _timePickPosX, 60, GetColor(255,255,255), true);
-	DrawBox(_timePickPosX -10, 30, _timePickPosX + 10, 70, GetColor(255, 255, 255), true);
+	DrawBox(TIME_TICK_X - 30, 25, TIME_TICK_X + TIME_TICK_WIDTH + 130, 75, GetColor(128, 128, 128), true);//背景
+	DrawBox(TIME_TICK_X, 40, _timePickPosX, 60, GetColor(255, 255, 255), true);//スライダー
+	DrawBox(_timePickPosX - 10, 30, _timePickPosX + 10, 70, GetColor(255, 255, 255), true);//スライダーのつまみ
 	DrawFormatString(TIME_TICK_X + TIME_TICK_WIDTH + 20, 40, GetColor(255, 255, 255), "Time:%f", _time);
+
+	//-------------------------------------------------------
+	DrawBox(TIME_TICK_X - 30, 25 + 60, TIME_TICK_X + TIME_TICK_WIDTH + 130, 75 + 60, GetColor(128, 128, 128), true);//背景
+	DrawBox(TIME_TICK_X, 40 + 60, _speedPickPosX, 60 + 60, GetColor(255, 255, 255), true);//スライダー
+	DrawBox(_speedPickPosX - 10, 30 + 60, _speedPickPosX + 10, 70 + 60, GetColor(255, 255, 255), true);//スライダーのつまみ
+	DrawFormatString(TIME_TICK_X + TIME_TICK_WIDTH + 20, 40 + 60, GetColor(255, 255, 255), "Speed:%f", _timeSpeed);
 
 	float lineWidth = 50.0f;
 	DrawLine3D((_cameraOriginPos - Vector3D(1, 0, 0) * lineWidth).toVECTOR(), (_cameraOriginPos + Vector3D(1, 0, 0) * lineWidth).toVECTOR(), 0x0000ff);

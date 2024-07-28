@@ -11,7 +11,7 @@ public:
 	virtual bool UpdateInit();
 	virtual bool Update();
 	virtual bool UpdateEnd();
-	virtual bool DebugDraw();
+	virtual bool Draw();
 
 	std::string GetName() { return _name; }
 	Vector3D GetForwardVec() { return _forwardVec; }

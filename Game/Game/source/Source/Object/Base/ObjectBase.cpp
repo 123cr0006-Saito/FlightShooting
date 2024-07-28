@@ -24,6 +24,6 @@ bool ObjectBase::UpdateEnd(){
 	return true;
 };
 
-bool ObjectBase::DebugDraw() {
+bool ObjectBase::Draw() {
 	return true;
 };

@@ -22,11 +22,11 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 
 	// 使用するマネージャークラスを登録
 	_superManager = NEW SuperManager();
-	RenderManager* renderManager = NEW RenderManager();
+
 	CollisionManager* collisionManager = NEW CollisionManager();
 	ObjectManager* objectManager = NEW ObjectManager();
 	UIManager* uiManager = NEW UIManager();
-	_superManager->Add("renderManager", 100, renderManager);
+	
 	_superManager->Add("collisionManager", 1, collisionManager);
 	_superManager->Add("objectManager", 10, objectManager);
 	_superManager->Add("uiManager", 1000, uiManager);

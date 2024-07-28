@@ -127,6 +127,8 @@ bool SuperManager::Update() {
 // @return ê¨å˜ÇµÇΩÇ©Ç«Ç§Ç©
 //----------------------------------------------------------------------
 bool SuperManager::Draw() {
+	SetUseZBuffer3D(TRUE);
+	SetWriteZBuffer3D(TRUE);
 	for (auto&& list : _superManager) {
 		std::get<2>(list)->Draw();
 	}

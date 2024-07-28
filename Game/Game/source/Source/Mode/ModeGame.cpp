@@ -20,6 +20,9 @@
 
 #include "../../Header/ModeSpline.h"
 
+#include "../../Header/Object/Target.h"
+#include "../../Header/Object/Jet.h"
+
 //----------------------------------------------------------------------
 // @brief コンストラクタ
 // @return 無し
@@ -38,20 +41,31 @@ bool ModeGame::Initialize() {
 	_superManager = SuperManager::GetInstance();
 	ChangeLightTypeDir(VGet(0,0,1));
 	// オブジェクトの生成
-	LoadObject();
+	for(int i = 1; i <= 3; i++ ){
+		LoadObject("LineData/CatmullSpline_0" + std::to_string(i) +".txt");
+	}
 	// カメラの生成
-	//UIの生成
-	LoadUI();
+	SetCameraNearFar(1.0f, 1000000.0f);
+	int ufo = MV1LoadModel("res/UFO.mv1");
+	for(int i = 0; i < 3 ; i++){
+		for(float j = 0; j < 50; j+=1){
+			int speed = rand() % 100;
+			int handle = MV1DuplicateModel(ufo);
+			Target* target = new Target((float)speed / 100,a[i].first,handle,"Catmull",&a[i].second);
+			_superManager->GetManager("objectManager")->AddInput(target);
+			
+		}
+	}
+
+	_superManager->GetManager("objectManager")->AddInput(new Jet());
+	
+	skySphere = MV1LoadModel("Res/SkySphere/skysphere.mv1");
+	
+	MV1SetPosition(skySphere, VGet(0, 0, 0));
+	MV1SetScale(skySphere, (Vector3D(1, 1, 1) * 2).toVECTOR());
 	SetCameraNearFar(1.0f, 1000000.0f);
 
-	jetModel = MV1LoadModel("Res/jet.mv1");
-	skySphere = MV1LoadModel("Res/SkySphere/skysphere.mv1");
-	MV1SetPosition(jetModel, VGet(0, 0, 0));
-	MV1SetPosition(skySphere, VGet(0, 0, 0));
-	MV1SetScale(skySphere, (Vector3D(1, 1, 1) * 3).toVECTOR());
-	SetCameraNearFar(1.0f, 1000000.0f);
-	input = new XInput();
-	isCameraBack = true;
+
 
 	return true;
 }
@@ -65,20 +79,35 @@ bool ModeGame::Terminate() {
 	return true;
 }
 //----------------------------------------------------------------------
-// @brief オブジェクトの読み込み
+// @brief Objectの読み込み
 // @return 成功しているか
 //----------------------------------------------------------------------
-bool ModeGame::LoadObject(){
-	//ボールの生成
-	
-	return true;
-};
-//----------------------------------------------------------------------
-// @brief UIの読み込み
-// @return 成功しているか
-//----------------------------------------------------------------------
-bool ModeGame::LoadUI(){
+bool ModeGame::LoadObject(std::string name){
+	// csvファイルを読み込む
+	CFile file(name);
+	// ファイルが開けた場合
+	if (file.Success()) {
 
+		float speed;
+		std::vector<Vector3D> b;
+		int c = 0;
+		const char* p = (const char*)file.Data();
+		int size = file.Size();
+		c += GetFloatNum(&p[c], &speed); // 名前を取得
+		c += SkipSpace(&p[c], &p[size]); // 空白やコントロールコードをスキップする
+		while (c < size) {
+			Vector3D pos;
+			c += GetFloatNum(&p[c], &pos.x); //x座標を取得
+			c += FindString(&p[c], ',', &p[size]); c++; c += GetFloatNum(&p[c], &pos.y); //y座標を取得
+			c += FindString(&p[c], ',', &p[size]); c++; c += GetFloatNum(&p[c], &pos.z); //z座標を取得
+			c += SkipSpace(&p[c], &p[size]); // 空白やコントロールコードをスキップする
+			b.push_back(pos);
+		}
+		a.push_back(std::make_pair(speed,b));
+	}
+	else {
+		DebugErrar();
+	}
 	return true;
 };
 //----------------------------------------------------------------------
@@ -120,49 +149,9 @@ std::vector<std::tuple<std::string, Vector3D, Vector3D>> ModeGame::LoadObjectPar
 //----------------------------------------------------------------------
 bool ModeGame::Process() {
 	base::Process();
-	input->Input();
+
+	_superManager->Update();
 	
-	// 時間制限の処理
-	float x, y, z;
-	Quaternion qx, qy, qz;
-	x = y = z = 0;
-	x = (float)input->GetLy() / (MAXSHORT * 100);
-	y = (float)input->GetLx() / (MAXSHORT * 100);
-	z -= (float)input->GetLTrg() / (MAXCHAR * 100);
-	z += (float)input->GetRTrg() / (MAXCHAR * 100);
-	qx.SetToRotateX(x);
-	qy.SetToRotateY(y);
-	qz.SetToRotateZ(z);
-	origin *= qx;
-	origin *= qy;
-	origin *= qz;
-	MV1SetRotationXYZ(jetModel, origin.byEuler().toVECTOR());
-	Vector3D forwardVec = RotateVectorByQuaternion(Vector3D(0, 0, 1), origin);
-	pos += forwardVec*10;
-	MV1SetPosition(jetModel, pos.toVECTOR());
-
-	if (input->GetTrg(XINPUT_BUTTON_DPAD_DOWN)) { isCameraBack = !isCameraBack; }
-
-	if (input->GetTrg(XINPUT_BUTTON_START)) {
-		ModeServer::GetInstance()->Add(new ModeSpline(input,pos) , 1000,"spline");
-	}
-
-	if (isCameraBack) {
-		Vector3D upVec = RotateVectorByQuaternion(Vector3D(0, 1, 0), origin);
-		SetCameraPositionAndTargetAndUpVec((pos - forwardVec * 1500).toVECTOR(), pos.toVECTOR(), upVec.toVECTOR());
-	}
-	else {
-		x = (float)input->GetRy() / (MAXSHORT * 100);
-		y = (float)input->GetRx() / (MAXSHORT * 100);
-		qx.SetToRotateX(x);
-		qy.SetToRotateY(y);
-		cameraQuaternion *= qx;
-		cameraQuaternion *= qy;
-		forwardVec = RotateVectorByQuaternion(Vector3D(0, 0, 1), origin * cameraQuaternion);
-		Vector3D framePos = MV1GetFramePosition(jetModel, MV1SearchFrame(jetModel,"Bone_end"));
-		Vector3D upVec = RotateVectorByQuaternion(Vector3D(0, 1, 0), origin);
-		SetCameraPositionAndTargetAndUpVec(framePos.toVECTOR(), (framePos + forwardVec).toVECTOR(), upVec.toVECTOR());
-	}
 	return true;
 }
 //----------------------------------------------------------------------
@@ -171,7 +160,8 @@ bool ModeGame::Process() {
 //----------------------------------------------------------------------
 bool ModeGame::Render() {
 	base::Render();
-	MV1DrawModel(jetModel);
 	MV1DrawModel(skySphere);
+	_superManager->Draw();
+
 	return true;
 }

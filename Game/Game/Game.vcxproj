@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="source\Source\Other\Score.cpp" />
     <ClCompile Include="source\Source\Object\Bullet.cpp" />
     <ClCompile Include="source\Source\Object\Jet.cpp" />
     <ClCompile Include="source\Source\Model\RimLightModel.cpp" />
@@ -46,6 +47,7 @@
     <ClCompile Include="source\Source\Object\Target.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\Header\Other\Score.h" />
     <ClInclude Include="source\Header\Object\Bullet.h" />
     <ClInclude Include="source\Header\Object\Jet.h" />
     <ClInclude Include="source\Header\Model\RimLightModel.h" />

@@ -26,7 +26,12 @@
     <ClCompile Include="source\Source\Object\Target.cpp" />
     <ClCompile Include="source\Source\Object\Jet.cpp" />
     <ClCompile Include="source\Source\Object\Bullet.cpp" />
+<<<<<<< Updated upstream
     <ClCompile Include="source\Source\Other\Score.cpp" />
+=======
+    <ClCompile Include="source\Source\UI\UITimer.cpp" />
+    <ClCompile Include="source\Source\Other\TimeLimit.cpp" />
+>>>>>>> Stashed changes
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Header\Object\Base\ObjectBase.h" />
@@ -54,6 +59,11 @@
     <ClInclude Include="source\Header\Object\Target.h" />
     <ClInclude Include="source\Header\Object\Jet.h" />
     <ClInclude Include="source\Header\Object\Bullet.h" />
+<<<<<<< Updated upstream
     <ClInclude Include="source\Header\Other\Score.h" />
+=======
+    <ClInclude Include="source\Header\UI\UITimer.h" />
+    <ClInclude Include="source\Header\Other\TimeLimit.h" />
+>>>>>>> Stashed changes
   </ItemGroup>
 </Project>

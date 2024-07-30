@@ -68,9 +68,17 @@ bool Jet::Update(){
 	_forwardVec = RotateVectorByQuaternion(Vector3D(0, 0, 1), origin);
 	_pos += _forwardVec * MOVE_SPEED;
 	MV1SetPosition(_model, _pos.toVECTOR());
+
 	if(_input->GetKey(XINPUT_BUTTON_A) && _coolTime <= 0){
 		_coolTime = 10;
-		SuperManager::GetInstance()->GetManager("objectManager")->Add(new Bullet(_pos + _forwardVec*100, _forwardVec));
+		// ¶—ƒ‚Ì’e‚Ì¶¬
+		MATRIX transPos = MGetTranslate(VScale(VGet(-160,-214,-137),-1));
+		MATRIX MixMat = MMult(transPos,MV1GetFrameLocalWorldMatrix(_model,0));
+		SuperManager::GetInstance()->GetManager("objectManager")->Add(new Bullet(Vector3D(MixMat.m[3][0], MixMat.m[3][1], MixMat.m[3][2]), _forwardVec));
+		// ‰E—ƒ‚Ì’e‚Ì¶¬
+		transPos = MGetTranslate(VScale(VGet(160, -214, 137), -1));
+		MixMat = MMult(transPos, MV1GetFrameLocalWorldMatrix(_model, 0));
+		SuperManager::GetInstance()->GetManager("objectManager")->Add(new Bullet(Vector3D(MixMat.m[3][0], MixMat.m[3][1], MixMat.m[3][2]), _forwardVec));
 	}
 
 	// ƒJƒƒ‰‚Ìˆ—

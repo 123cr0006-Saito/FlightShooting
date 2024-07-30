@@ -5,6 +5,7 @@ Score::Score() {
 	if (_instance != nullptr) {
 		DebugErrar();
 	}
+	_instance = this;
 	_score = 0;
 };
 

@@ -23,6 +23,12 @@
 #include "../../Header/Object/Target.h"
 #include "../../Header/Object/Jet.h"
 
+#include "../../Header/Other/Score.h"
+#include "../../Header/Other/TimeLimit.h"
+
+#include "../../Header/UI/UITimer.h"
+#include "../../Header/UI/UIScore.h"
+
 //----------------------------------------------------------------------
 // @brief コンストラクタ
 // @return 無し
@@ -58,6 +64,14 @@ bool ModeGame::Initialize() {
 	}
 
 	_superManager->GetManager("objectManager")->AddInput(new Jet());
+
+	_score = new Score();
+	_timeLimit = new TimeLimit();
+	_timeLimit->SetTimeLimit(1, 0);
+
+	_superManager->GetManager("uiManager")->AddInput(new UITimer());
+	_superManager->GetManager("uiManager")->AddInput(new UIScore());
+
 	
 	skySphere = MV1LoadModel("Res/SkySphere/skysphere.mv1");
 	

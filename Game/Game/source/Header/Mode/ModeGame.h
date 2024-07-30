@@ -31,4 +31,6 @@ protected:
 	std::vector<std::pair<float, std::vector<Vector3D>>> a;
 	std::vector<class Target*> _target;
 	class Jet* _jet;
+	class Score* _score;
+	class TimeLimit* _timeLimit;
 };

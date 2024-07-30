@@ -47,6 +47,7 @@
     <ClCompile Include="source\Source\UI\Base\UIRotaBase.cpp" />
     <ClCompile Include="source\Source\Object\Target.cpp" />
     <ClCompile Include="source\Source\UI\UITimer.cpp" />
+    <ClCompile Include="source\Source\UI\UIScore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Header\Other\Score.h" />
@@ -77,6 +78,7 @@
     <ClInclude Include="source\Header\UI\Base\UIRotaBase.h" />
     <ClInclude Include="source\Header\Object\Target.h" />
     <ClInclude Include="source\Header\UI\UITimer.h" />
+    <ClInclude Include="source\Header\UI\UIScore.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

@@ -9,6 +9,8 @@ Target::Target(float time , float speed , int handle ,std::string type, std::vec
 	_sphere = new Sphere("target",_pos, 100.0f,this);
 	SuperManager::GetInstance()->GetManager("collisionManager")->AddInput(_sphere);
 
+	//MV1SetScale(_model, (Vector3D(1, 1, 1) * 3).toVECTOR());
+
 	if (type == "Catmull"){
 		_moveType = SplineMoveType::Catmull;
 		_nextPos = Spline::CatmullRomSpline((*_point), _time);

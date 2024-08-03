@@ -12,6 +12,9 @@ public:
 	virtual ~Target();
 	virtual bool Update();
 	virtual bool Draw();
+
+	void MoveProcess();
+	void ExplosionProcess();
 protected:
 	float _time;
 	float _speed;

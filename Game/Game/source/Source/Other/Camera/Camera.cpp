@@ -19,16 +19,29 @@ Camera::Camera() :
 	
 };
 
+Camera::Camera(Vector3D pos, Vector3D target) :
+_isGame(false),
+_currentTime(GetNowCount())
+{
+	if (_instance != nullptr) {
+		DebugErrar();
+		return;
+	}
+	_instance = this;
+	_pos.first = pos;
+	_pos.second = target;
+};
+
 Camera::~Camera(){
 	_instance = nullptr;
 };
 
 bool Camera::Update(Vector3D pos, Vector3D target, Vector3D up){
 
-	double elapsedTime = Timer::GetInstance()->TimeElapsed();
-
+	double elapsedTime = 1.0 / 60.0;
+	SpringDamperSystem(elapsedTime, _pos.first, pos, _posSpeed, 100, 20);
 	SpringDamperSystem(elapsedTime,_pos.second, target, _targetSpeed,50,20);
-	SpringDamperSystem(elapsedTime,_pos.first, pos,_posSpeed,100,20);
+	
 	
 	SetCameraPositionAndTargetAndUpVec(_pos.first.toVECTOR(), _pos.second.toVECTOR(), up.toVECTOR());
 	return true;

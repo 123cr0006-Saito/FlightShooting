@@ -5,6 +5,7 @@ class Camera
 {
 public:
 	Camera();
+	Camera(Vector3D pos, Vector3D target);
 	~Camera();
 	bool Update(Vector3D pos,Vector3D target, Vector3D up);
 	void UpdateSelectAndResult();

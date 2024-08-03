@@ -14,7 +14,7 @@ Jet::Jet() : ObjectBase("Jet") {
 	_model = MV1LoadModel("Res/jet.mv1");
 	isCameraBack = true;
 	_coolTime = 0;
-	_camera = new Camera();
+	_camera = new Camera((_pos - Vector3D(0,0,1) * 1500), _pos);
 };
 
 Jet::~Jet(){

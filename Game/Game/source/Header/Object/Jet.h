@@ -17,6 +17,7 @@ protected:
 	Quaternion origin;
 	Vector3D _airplaneMoveSpeed;
 	Vector3D _perspectiveMoveSpeed;
+	class Camera* _camera;
 	bool isCameraBack;
 };
 

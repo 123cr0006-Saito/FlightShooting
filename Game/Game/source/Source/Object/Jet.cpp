@@ -1,7 +1,7 @@
 #include "../../Header/Object/Jet.h"
 #include "../../Header/Object/Bullet.h"
 #include "../../Header/Manager/SuperManager.h"
-
+#include "../../Header/Other/Camera/Camera.h"
 namespace {
 	constexpr auto ROTATION_MOVE_SPEED_MAX = 0.015f;
 	constexpr auto ROTATION_MOVE_SPEED_MIN = -0.015f;
@@ -14,6 +14,7 @@ Jet::Jet() : ObjectBase("Jet") {
 	_model = MV1LoadModel("Res/jet.mv1");
 	isCameraBack = true;
 	_coolTime = 0;
+	_camera = new Camera();
 };
 
 Jet::~Jet(){
@@ -88,7 +89,7 @@ bool Jet::Update(){
 	if (isCameraBack) {
 		//	三人称視点の処理
 		Vector3D upVec = RotateVectorByQuaternion(Vector3D(0, 1, 0), origin);
-		SetCameraPositionAndTargetAndUpVec((_pos - _forwardVec * 1500).toVECTOR(), _pos.toVECTOR(), upVec.toVECTOR());
+		_camera->Update((_pos - _forwardVec * 1500), _pos,upVec);
 	}
 	else {
 		//	一人称視点の処理

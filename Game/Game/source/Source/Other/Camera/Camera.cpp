@@ -23,13 +23,14 @@ Camera::~Camera(){
 	_instance = nullptr;
 };
 
-bool Camera::Update(){
-	if(_isGame){
-		UpdateGame();
-	}	
-	else{
-		UpdateSelectAndResult();
-	}
+bool Camera::Update(Vector3D pos, Vector3D target, Vector3D up){
+
+	double elapsedTime = Timer::GetInstance()->TimeElapsed();
+
+	SpringDamperSystem(elapsedTime,_pos.second, target, _targetSpeed,50,20);
+	SpringDamperSystem(elapsedTime,_pos.first, pos,_posSpeed,100,20);
+	
+	SetCameraPositionAndTargetAndUpVec(_pos.first.toVECTOR(), _pos.second.toVECTOR(), up.toVECTOR());
 	return true;
 };
 
@@ -58,18 +59,17 @@ void Camera::SetIsGame(bool isGame) {
 	_currentTime = GetNowCount();
 };
 
-bool Camera::SpringDamperSystem(Vector3D targetPos){
-	float springConstant = 100.0f;
-	float dampingConstant = 20.0f;
-	double elapsedTime = Timer::GetInstance()->TimeElapsed();
-
-	Vector3D pos = _pos.second - targetPos;
+bool Camera::SpringDamperSystem(double time ,Vector3D& nowPos, Vector3D targetPos, Vector3D& speed, float spling, float danpa){
+	float springConstant = spling;
+	float dampingConstant = danpa;
+	
+	Vector3D pos = nowPos - targetPos;
 	Vector3D springForce = pos * -springConstant; // バネの力 -kx 弾性力
-	Vector3D dampingForce = _speed * -dampingConstant; // ダンパの力 -cv 抵抗力
+	Vector3D dampingForce = speed * -dampingConstant; // ダンパの力 -cv 抵抗力
 	Vector3D force = springForce + dampingForce; // 合力
 
-	_speed += force * elapsedTime;
-	_pos.second += _speed * elapsedTime;
+	speed += force * time;
+	nowPos += speed * time;
 
 	return true;
 };

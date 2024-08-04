@@ -113,6 +113,8 @@ bool ObjectManager::UpdateInit(){
 // @return ¬Œ÷‚µ‚½‚©‚Ç‚¤‚©
 //----------------------------------------------------------------------
 bool ObjectManager::Update(){
+
+	UpdateInit();
 	for (auto&& list : _objectList) {
 		list->Update();
 	}
@@ -125,6 +127,7 @@ bool ObjectManager::Update(){
 //----------------------------------------------------------------------
 bool ObjectManager::UpdateEnd() 
 {
+	UpdateInit();
 	for (auto&& list : _objectList) {
 		list->UpdateEnd();
 	}

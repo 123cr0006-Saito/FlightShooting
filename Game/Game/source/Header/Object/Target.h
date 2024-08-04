@@ -13,9 +13,13 @@ public:
 	virtual bool Update();
 	virtual bool Draw();
 
+	void SetIsAlive(bool isAlive) { _isAlive = isAlive; }
+	bool GetIsAlive() { return _isAlive; }
+
 	void MoveProcess();
 	void ExplosionProcess();
 protected:
+	bool _isAlive;
 	float _time;
 	float _speed;
 	int _model;
@@ -23,5 +27,10 @@ protected:
 	std::vector<Vector3D>* _point; 
 	SplineMoveType _moveType;
 	Sphere* _sphere;
+
+	int _frameSize;
+	std::vector<Vector3D> _rotVec;
+	std::vector<Vector3D> _moveVec;
+	float _alpha;
 };
 

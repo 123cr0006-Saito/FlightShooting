@@ -23,16 +23,16 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	// 使用するマネージャークラスを登録
 	_superManager = NEW SuperManager();
 
-	CollisionManager* collisionManager = NEW CollisionManager();
 	ObjectManager* objectManager = NEW ObjectManager();
+	CollisionManager* collisionManager = NEW CollisionManager();
 	UIManager* uiManager = NEW UIManager();
 	
-	_superManager->Add("collisionManager", 1, collisionManager);
-	_superManager->Add("objectManager", 10, objectManager);
+	_superManager->Add("objectManager", 1, objectManager);
+	_superManager->Add("collisionManager", 10, collisionManager);
 	_superManager->Add("uiManager", 1000, uiManager);
 
 	// モードの登録
-	ModeServer::GetInstance()->Add(NEW ModeGame(), 1, "ModeTitle");
+	ModeServer::GetInstance()->Add(NEW ModeTitle(), 1, "ModeTitle");
 	return true;
 }
 

@@ -2,14 +2,14 @@
 #include "../AppFrame/source/System/Header/Resource/ResourceServer.h"
 #include "../../Header/Other/TimeLimit.h"
 UITimer::UITimer() : UIBase(){
-	_colonHandle = LoadGraph("Res/UITime/Time_UI_colon.png");
+	_colonHandle = LoadGraph("Res/UITime/UI_Time_Colon.png");
 	for(int i = 1; i <= 10; i++){
 		_timeHandle[i-1] = LoadGraph(("Res/UITime/Ui_Time (" + std::to_string(i) + ").png").c_str());
 	}
 
 	_name = "UITimer";
 	_pos = Vector3D(1700, 150, 0);
-	_numPos = Vector3D(1700 + 50, 130, 0);
+	_numPos = Vector3D(1700 + 60, 130, 0);
 	_handle = LoadGraph("Res/UITime/UI_TIME_Gauge.png");
 	_timeLimit = TimeLimit::GetInstance();
 };
@@ -28,13 +28,13 @@ void UITimer::Draw() {
 	int loopCount = 0;
 
 	int x = (int)_numPos.x;
-	while (1) {
+	for(int i = 0; i < 4; i++){
 
 		int handleX, handleY;
 		if (loopCount == 2) {
 			// ƒRƒƒ“‚ð•`‰æ
 			GetGraphSize(_colonHandle, &handleX, &handleY);
-			DrawGraph(x + handleX, _numPos.y + 10, _colonHandle, true);
+			DrawGraph(x + handleX , _numPos.y , _colonHandle, true);
 			x -= handleX + 20;// ”Žš‚ÌŠÔŠu
 		}
 
@@ -48,9 +48,7 @@ void UITimer::Draw() {
 		x -= handleX + 10;// ”Žš‚ÌŠÔŠu
 		loopCount++;// ‰½Œ…–Ú‚©”‚¦‚é
 
-		if (time == 0) {
-			break;
-		}
+		
 
 	}
 };

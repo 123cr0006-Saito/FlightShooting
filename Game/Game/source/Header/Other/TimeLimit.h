@@ -25,6 +25,7 @@ public:
 
 	float GetRemainingTime() const { return _remainingTime; }
 	int GetTimeLimit() const { return _timeLimitSecond > 0 ? _timeLimitSecond : 0; }
+	bool GetIsEnd() const { return _remainingTime <= 0; }
 	int GetElapsedTime() const { return _elapsedTime; }
 
 	int GetDigits();

@@ -7,6 +7,7 @@
 #include "../AppFrame/source/CFile/CFile.h"
 
 #include "../../Header/Mode/ModeGame.h"
+#include "../../Header/Mode/ModeGameEnd.h"
 
 #include "../../Header/Manager/SuperManager.h"
 #include "../../Header/Manager/RenderManager.h"
@@ -62,16 +63,17 @@ bool ModeGame::Initialize() {
 			
 		}
 	}
+	
 
 	_superManager->GetManager("objectManager")->AddInput(new Jet());
 
 	_score = new Score();
 	_timeLimit = new TimeLimit();
 	_timeLimit->SetTimeLimit(1, 0);
+	_timeLimit->Restart();
 
 	_superManager->GetManager("uiManager")->AddInput(new UITimer());
 	_superManager->GetManager("uiManager")->AddInput(new UIScore());
-
 	
 	skySphere = MV1LoadModel("Res/SkySphere/skysphere.mv1");
 	
@@ -89,7 +91,9 @@ bool ModeGame::Initialize() {
 //----------------------------------------------------------------------
 bool ModeGame::Terminate() {
 	base::Terminate();
-	
+	SuperManager::GetInstance()->GetManager("objectManager")->DelAll();
+	SuperManager::GetInstance()->GetManager("collisionManager")->DelAll();
+	SuperManager::GetInstance()->GetManager("uiManager")->DelAll();	
 	return true;
 }
 //----------------------------------------------------------------------
@@ -165,7 +169,13 @@ bool ModeGame::Process() {
 	base::Process();
 
 	_superManager->Update();
-	
+	_timeLimit->Update();
+
+	if(_timeLimit->GetIsEnd()){
+		ModeServer::GetInstance()->Add(new ModeGameEnd(), 1, "ModeGameEnd");
+		ModeServer::GetInstance()->Del(this);
+	}
+
 	return true;
 }
 //----------------------------------------------------------------------

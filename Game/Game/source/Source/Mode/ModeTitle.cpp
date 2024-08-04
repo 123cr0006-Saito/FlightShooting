@@ -5,6 +5,7 @@
 // オブジェクトを管理するクラス
 //----------------------------------------------------------------------
 #include "../../Header/Mode/ModeTitle.h"
+#include "../../Header/Mode/ModeGame.h"
 #include "../AppFrame/source/CFile/CFile.h"
 #include "../AppFrame/source/Mode/ModeServer.h"
 #include "../../Header/Mode/ModeFadeComeBack.h"
@@ -19,7 +20,7 @@
 // @return 無し
 //----------------------------------------------------------------------
 ModeTitle::ModeTitle(){
-
+	_fontHandle = CreateFontToHandle("メイリオ",128,3, DX_FONTTYPE_EDGE);
 };
 //----------------------------------------------------------------------
 // @brief デストラクタ
@@ -34,7 +35,6 @@ ModeTitle::~ModeTitle(){
 //----------------------------------------------------------------------
 bool ModeTitle::Initialize(){
 	_superManager = SuperManager::GetInstance();
-	
 	//パッドの作成
 	_input = NEW XInput(PLAYER_1);
 	//BGMを設定
@@ -58,9 +58,10 @@ bool ModeTitle::Terminate(){
 //----------------------------------------------------------------------
 bool ModeTitle::Process(){
 	_input->Input();
-	//Aボタンでセレクト画面に移動
-
-
+	if (_input->GetTrg(XINPUT_BUTTON_A)) {
+		ModeServer::GetInstance()->Add(NEW ModeGame(), 1, "ModeGame");
+		ModeServer::GetInstance()->Del(this);
+	}
 	return true;
 };
 //----------------------------------------------------------------------
@@ -68,5 +69,7 @@ bool ModeTitle::Process(){
 // @return 成功したかどうか
 //----------------------------------------------------------------------
 bool ModeTitle::Render(){
+	DrawFormatStringToHandle(1920 / 2 - 450, 1080 / 2 - 300, GetColor(255, 255, 255), _fontHandle, "Flite Shooting");
+	DrawFormatStringToHandle(1920 / 2 - 400, 1080/2+100, GetColor(255, 255, 255), _fontHandle,"Game Start");
 	return true;
 };

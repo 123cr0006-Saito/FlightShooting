@@ -13,6 +13,7 @@
 #include "../AppFrame/MemoryLeak.h"
 #include "../AppFrame/source/Application/Global.h"
 #include "../../Header/Other/Score.h"
+#include "../../Header/Object/Target.h"
 //----------------------------------------------------------------------
 // @brief コンストラクタ
 // @return 無し
@@ -133,9 +134,11 @@ bool CollisionManager::Update(){
 				if (second->GetName() == "target") {
 					Sphere* target = static_cast<Sphere*>(second);
 					if (Collision3D::SphereCol((*bullet), (*target))) {
-						Score::GetInstance()->AddScore(200);
-						SuperManager::GetInstance()->GetManager("objectManager")->DeleteInput(bullet->GetObje());
-						SuperManager::GetInstance()->GetManager("objectManager")->DeleteInput(target->GetObje());
+						Target* targetObje = static_cast<Target*>(second->GetObje());
+						if(targetObje->GetIsAlive()) {
+							Score::GetInstance()->AddScore(200);
+							static_cast<Target*>(target->GetObje())->SetIsAlive(false);
+						}
 					}
 				}
 			}

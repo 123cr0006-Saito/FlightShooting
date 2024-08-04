@@ -6,19 +6,26 @@ Bullet::Bullet(const Vector3D& pos, const Vector3D& forward) : ObjectBase("bulle
 	_currentTime = GetNowCount();
 	_sphere = new Sphere("bullet",_pos, 30.0f,this);
 	SuperManager::GetInstance()->GetManager("collisionManager")->AddInput(_sphere);
+	_isAlive = true;
 };
 
 Bullet::~Bullet(){
 	SuperManager::GetInstance()->GetManager("collisionManager")->Delete(_sphere);
+	_sphere = nullptr;
+	_isAlive = false;
 };
 
 bool Bullet::Update(){
+
 	float speed = 100.0f;
 	_pos += _forwardVec * speed;
 	int nowTime = GetNowCount() - _currentTime;
-	_sphere->Update(_pos);
+	if(_sphere != nullptr){
+		_sphere->Update(_pos);
+	}
 	if(nowTime > 1000){
-		SuperManager::GetInstance()->GetManager("objectManager")->DeleteInput(this);
+		SuperManager::GetInstance()->GetManager("objectManager")->DeleteInput(this);	
+		_isAlive = false;
 	}
 	return true;
 };

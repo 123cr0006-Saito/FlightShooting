@@ -30,6 +30,7 @@
     <ClCompile Include="source\Source\Object\Target.cpp" />
     <ClCompile Include="source\Source\UI\UITimer.cpp" />
     <ClCompile Include="source\Source\UI\UIScore.cpp" />
+    <ClCompile Include="source\Source\Mode\ModeGameEnd.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\Header\Other\Score.h" />
@@ -61,5 +62,6 @@
     <ClInclude Include="source\Header\Object\Target.h" />
     <ClInclude Include="source\Header\UI\UITimer.h" />
     <ClInclude Include="source\Header\UI\UIScore.h" />
+    <ClInclude Include="source\Header\Mode\ModeGameEnd.h" />
   </ItemGroup>
 </Project>

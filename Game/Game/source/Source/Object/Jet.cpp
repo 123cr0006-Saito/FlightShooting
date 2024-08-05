@@ -7,14 +7,20 @@ namespace {
 	constexpr auto ROTATION_MOVE_SPEED_MIN = -0.015f;
 	constexpr auto ROTATION_ATTENUATION_AMOUNT = 0.0005f;
 	constexpr auto MOVE_SPEED = 10;
+	constexpr auto MAX_LENGTH = 9500;
+	constexpr auto MAX_BULLET = 100;
+	constexpr auto BULLET_RELOAD = 3000;
 }
 
 Jet::Jet() : ObjectBase("Jet") {
-	_input = new XInput();
+	_input = XInput::GetInstance();
 	_model = MV1LoadModel("Res/jet.mv1");
 	isCameraBack = true;
-	_coolTime = 0;
+	_bulletCoolTime = 0;
 	_camera = new Camera((_pos - Vector3D(0,0,1) * 1500), _pos);
+	isReload = false;
+	_bulletNum = MAX_BULLET;
+	_fontHandle = CreateFontToHandle("メイリオ", 64, 3, DX_FONTTYPE_EDGE);
 };
 
 Jet::~Jet(){
@@ -41,8 +47,41 @@ bool Jet::Update(){
 
 	_input->Input();
 
-	if(_coolTime > 0){
-		_coolTime--;
+	if(_bulletCoolTime > 0){
+		_bulletCoolTime--;
+	}
+
+	if (isReload) {
+		if (GetNowCount() - _reloadCoolTime > BULLET_RELOAD) {
+			isReload = false;
+			_bulletNum = MAX_BULLET;
+		}
+	}
+
+	if (_input->GetKey(XINPUT_BUTTON_B)) {
+		if (!isReload) {
+			_reloadCoolTime = GetNowCount();
+			isReload = true;
+		}
+	}
+
+	if (_input->GetKey(XINPUT_BUTTON_A) && _bulletCoolTime <= 0 && _bulletNum > 0 && !isReload) {
+		_bulletNum -= 2;
+		_bulletCoolTime = 10;
+		// 左翼の弾の生成
+		MATRIX transPos = MGetTranslate(VScale(VGet(-160, -214, -137), -1));
+		MATRIX MixMat = MMult(transPos, MV1GetFrameLocalWorldMatrix(_model, 0));
+		SuperManager::GetInstance()->GetManager("objectManager")->Add(new Bullet(Vector3D(MixMat.m[3][0], MixMat.m[3][1], MixMat.m[3][2]), _forwardVec));
+		// 右翼の弾の生成
+		transPos = MGetTranslate(VScale(VGet(160, -214, 137), -1));
+		MixMat = MMult(transPos, MV1GetFrameLocalWorldMatrix(_model, 0));
+		SuperManager::GetInstance()->GetManager("objectManager")->Add(new Bullet(Vector3D(MixMat.m[3][0], MixMat.m[3][1], MixMat.m[3][2]), _forwardVec));
+		global._soundServer->DirectPlay("SE_Gun");
+
+		if (_bulletNum <= 0) {
+			isReload = true;
+			_reloadCoolTime = GetNowCount();
+		}
 	}
 
 	// 時間制限の処理
@@ -62,24 +101,17 @@ bool Jet::Update(){
 	qy.SetToRotateY(_airplaneMoveSpeed.y);
 	qz.SetToRotateZ(_airplaneMoveSpeed.z);
 
-	origin *= qx * qy *  qz;
+	origin *= qz * qy *  qx;
 
 	// 飛行機モデルの処理
-	MV1SetRotationXYZ(_model, origin.byEuler().toVECTOR());
+	
 	_forwardVec = RotateVectorByQuaternion(Vector3D(0, 0, 1), origin);
 	_pos += _forwardVec * MOVE_SPEED;
-	MV1SetPosition(_model, _pos.toVECTOR());
 
-	if(_input->GetKey(XINPUT_BUTTON_A) && _coolTime <= 0){
-		_coolTime = 10;
-		// 左翼の弾の生成
-		MATRIX transPos = MGetTranslate(VScale(VGet(-160,-214,-137),-1));
-		MATRIX MixMat = MMult(transPos,MV1GetFrameLocalWorldMatrix(_model,0));
-		SuperManager::GetInstance()->GetManager("objectManager")->Add(new Bullet(Vector3D(MixMat.m[3][0], MixMat.m[3][1], MixMat.m[3][2]), _forwardVec));
-		// 右翼の弾の生成
-		transPos = MGetTranslate(VScale(VGet(160, -214, 137), -1));
-		MixMat = MMult(transPos, MV1GetFrameLocalWorldMatrix(_model, 0));
-		SuperManager::GetInstance()->GetManager("objectManager")->Add(new Bullet(Vector3D(MixMat.m[3][0], MixMat.m[3][1], MixMat.m[3][2]), _forwardVec));
+	if(_pos.Len() > MAX_LENGTH){
+		Vector3D arrowVec =  Vector3D(0,0,0) - _pos;
+		arrowVec = arrowVec.Normalize();
+		_pos = _pos + arrowVec*(_pos.Len()- MAX_LENGTH);
 	}
 
 	// カメラの処理
@@ -101,10 +133,18 @@ bool Jet::Update(){
 		Vector3D upVec = RotateVectorByQuaternion(Vector3D(0, 1, 0), origin);
 		SetCameraPositionAndTargetAndUpVec(framePos.toVECTOR(), (framePos + _forwardVec).toVECTOR(), upVec.toVECTOR());
 	}
+
+	MV1SetRotationXYZ(_model, origin.byEuler().toVECTOR());
+	MV1SetPosition(_model, _pos.toVECTOR());
+
 	return true;
 }
 
 bool Jet::Draw() {
 	MV1DrawModel(_model);
+	DrawFormatStringToHandle(1500, 900, GetColor(255, 255, 255),_fontHandle, "Bullet:%d", _bulletNum);
+	if(isReload){
+		DrawFormatStringToHandle(1500, 800, GetColor(255, 255, 255), _fontHandle, "Reloading...");
+	}
 	return true;
 }

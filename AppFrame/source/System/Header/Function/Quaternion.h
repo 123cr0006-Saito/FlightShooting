@@ -10,6 +10,7 @@ public:
 	void	SetToRotateX(float theta);
 	void	SetToRotateY(float theta);
 	void	SetToRotateZ(float theta);
+	void SetToMatrix (MATRIX& m);
 
 	static Quaternion CreateRotateX(float theta);
 	static Quaternion CreateRotateY(float theta);

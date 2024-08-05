@@ -138,6 +138,7 @@ bool CollisionManager::Update(){
 						if(targetObje->GetIsAlive()) {
 							Score::GetInstance()->AddScore(200);
 							static_cast<Target*>(target->GetObje())->SetIsAlive(false);
+							global._soundServer->DirectPlay("SE_Explosion");
 						}
 					}
 				}

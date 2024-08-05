@@ -20,6 +20,8 @@ bool ApplicationMain::Initialize(HINSTANCE hInstance) {
 	// FPSを安定させるためのクラスを初期化
 	_fpsController = NEW Fps();
 
+	_input = NEW XInput();
+
 	// 使用するマネージャークラスを登録
 	_superManager = NEW SuperManager();
 
@@ -41,12 +43,14 @@ bool ApplicationMain::Terminate() {
 	delete _timer; _timer = nullptr;
 	delete _fpsController; _fpsController = nullptr;
 	delete _superManager; _superManager = nullptr;
+	delete _input; _input = nullptr;
 	ResourceServer::DeleteResourceAll();
 	return true;
 }
 
 bool ApplicationMain::Input() {
 	base::Input();
+	_input->Input();
 	return true;
 }
 

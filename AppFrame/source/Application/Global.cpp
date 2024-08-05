@@ -33,19 +33,11 @@ bool Global::SoundLoad() {
 	// ”ñ“¯Šú“Ç‚Ýž‚ÝÝ’è
 	SetUseASyncLoadFlag(true);
 	//BGM
-	_soundServer->Add("BGM_Title", new SoundItemBGM("Sound/BGM/TitleBGM.mp3"));
-	_soundServer->Add("BGM_Game", new SoundItemBGM("Sound/BGM/GameMainBGM.mp3"));
-	_soundServer->Add("BGM_Cheers", new SoundItemBGM("Sound/BGM/Cheers.mp3"));
-	_soundServer->Add("BGM_Applause", new SoundItemBGM("Sound/BGM/Applause.mp3"));
+	//_soundServer->Add("BGM_Title", new SoundItemBGM(""));
 	//SE	
-	_soundServer->Add("SE_Bound", new SoundItemSE("Sound/SE/Bound.mp3"));
-	_soundServer->Add("SE_CountDown", new SoundItemSE("Sound/SE/CountDown.mp3"));
-	_soundServer->Add("SE_KnockBack", new SoundItemSE("Sound/SE/KnockBack.mp3"));
-	_soundServer->Add("SE_Shoot", new SoundItemSE("Sound/SE/Shoot.mp3"));
-	_soundServer->Add("SE_Whistle", new SoundItemSE("Sound/SE/Whistle.mp3"));
-	_soundServer->Add("SE_GameEnd", new SoundItemSE("Sound/SE/GameEnd.mp3"));
-	_soundServer->Add("SE_Cheers", new SoundItemSE("Sound/SE/Cheers.mp3"));
-	_soundServer->Add("SE_Dribble", new SoundItemSE("Sound/SE/Dribble.mp3"));
+	_soundServer->Add("SE_Gun", new SoundItemSE("Se/se_gun_fire05.mp3"));
+	_soundServer->Add("SE_Explosion", new SoundItemSE("Se/small_explosion2.mp3"));
+
 	SetUseASyncLoadFlag(FALSE);
 	return true;
 }

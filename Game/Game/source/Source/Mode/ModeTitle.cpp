@@ -36,7 +36,7 @@ ModeTitle::~ModeTitle(){
 bool ModeTitle::Initialize(){
 	_superManager = SuperManager::GetInstance();
 	//ƒpƒbƒh‚Ìì¬
-	_input = NEW XInput(PLAYER_1);
+	_input = XInput::GetInstance();
 	//BGM‚ðÝ’è
 	return true;
 };
@@ -45,7 +45,6 @@ bool ModeTitle::Initialize(){
 // @return ¬Œ÷‚µ‚Ä‚¢‚é‚©
 //----------------------------------------------------------------------
 bool ModeTitle::Terminate(){
-	delete _input;
 	// UI‚ðíœ
 	for(auto&& name : _uiName){
 		SuperManager::GetInstance()->GetManager("uiManager")->DeleteName(name);
@@ -57,7 +56,6 @@ bool ModeTitle::Terminate(){
 // @return ¬Œ÷‚µ‚½‚©‚Ç‚¤‚©
 //----------------------------------------------------------------------
 bool ModeTitle::Process(){
-	_input->Input();
 	if (_input->GetTrg(XINPUT_BUTTON_A)) {
 		ModeServer::GetInstance()->Add(NEW ModeGame(), 1, "ModeGame");
 		ModeServer::GetInstance()->Del(this);

@@ -16,6 +16,7 @@ public:
 	virtual bool AppWindowed() { return true; }
 
 protected:
+	XInput* _input;
 	Timer* _timer;
 	Fps* _fpsController;
 	class SuperManager* _superManager;

@@ -69,10 +69,14 @@ public:
 	static int GetConnectNum() { return _connectNum; }
 	static int SetConnectNum(int num) { return _connectNum = num; }
 
+	static XInput* GetInstance() { return _instatnce; }
+
 	//-----------------------------------------------------
 
 private:
 	XINPUT_STATE _input;
+
+	static XInput* _instatnce;
 
 	unsigned char Buttons[PAD_BUTTON_MAX];
 

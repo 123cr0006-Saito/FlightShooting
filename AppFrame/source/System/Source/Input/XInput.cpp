@@ -3,9 +3,14 @@
 
 int XInput::_connectNum = 0;
 
+XInput* XInput::_instatnce = nullptr;
+
 XInput::XInput() :
 	_isConnect(true) 
 {
+	if(_instatnce == nullptr){
+		_instatnce = this;
+	}
 	_connectNum++;
 	_padNum = _connectNum;
 	for (int i = 0; i < DXINPUT_BUTTON_MAX; i++) {

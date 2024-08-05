@@ -42,6 +42,47 @@ void	Quaternion::SetToRotateZ(float theta){
 	z = sin(thetaOver2);
 };
 
+void Quaternion::SetToMatrix(MATRIX& matrix){
+		double trace = matrix.m[0][0] + matrix.m[1][1] + matrix.m[2][2];
+		double w, x, y, z;
+
+		if (trace > 0) {
+			double s = 0.5 / std::sqrt(trace + 1.0);
+			w = 0.25 / s;
+			x = (matrix.m[2][1] - matrix.m[1][2]) * s;
+			y = (matrix.m[0][2] - matrix.m[2][0]) * s;
+			z = (matrix.m[1][0] - matrix.m[0][1]) * s;
+		}
+		else {
+			if (matrix.m[0][0] > matrix.m[1][1] && matrix.m[0][0] > matrix.m[2][2]) {
+				double s = 2.0 * std::sqrt(1.0 + matrix.m[0][0] - matrix.m[1][1] - matrix.m[2][2]);
+				w = (matrix.m[2][1] - matrix.m[1][2]) / s;
+				x = 0.25 * s;
+				y = (matrix.m[0][1] + matrix.m[1][0]) / s;
+				z = (matrix.m[0][2] + matrix.m[2][0]) / s;
+			}
+			else if (matrix.m[1][1] > matrix.m[2][2]) {
+				double s = 2.0 * std::sqrt(1.0 + matrix.m[1][1] - matrix.m[0][0] - matrix.m[2][0]);
+				w = (matrix.m[0][2] - matrix.m[2][0]) / s;
+				x = (matrix.m[0][1] + matrix.m[1][0]) / s;
+				y = 0.25 * s;
+				z = (matrix.m[1][2] + matrix.m[2][1]) / s;
+			}
+			else {
+				double s = 2.0 * std::sqrt(1.0 + matrix.m[2][2] - matrix.m[0][0] - matrix.m[1][1]);
+				w = (matrix.m[1][0] - matrix.m[0][1]) / s;
+				x = (matrix.m[0][2] + matrix.m[2][0]) / s;
+				y = (matrix.m[1][2] + matrix.m[2][1]) / s;
+				z = 0.25 * s;
+			}
+		}
+
+		this->w = w;
+		this->x = x;
+		this->y = y;
+		this->z = z;
+}
+
 Quaternion Quaternion::CreateRotateX(float theta){
 	Quaternion q;
 	q.SetToRotateX(theta);

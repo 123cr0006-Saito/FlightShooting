@@ -4,7 +4,7 @@
 bool ModeGameEnd::Initialize(){
 	_score = Score::GetInstance();
 	_fontHandle = CreateFontToHandle("ƒƒCƒŠƒI", 128, 3, DX_FONTTYPE_EDGE);
-	_input = NEW XInput(PLAYER_1);
+	_input = XInput::GetInstance();
 	return true;
 };
 
@@ -13,8 +13,7 @@ bool ModeGameEnd::Terminate(){
 };
 
 bool ModeGameEnd::Process(){
-	_input->Input();
-	if (_input->GetTrg(XINPUT_BUTTON_B)) {
+	if (_input->GetTrg(XINPUT_BUTTON_A)) {
 		ModeServer::GetInstance()->Add(NEW ModeTitle(), 1, "ModeTitle");
 		ModeServer::GetInstance()->Del(this);
 	}

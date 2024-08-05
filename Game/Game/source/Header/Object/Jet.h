@@ -12,12 +12,16 @@ public:
 protected:
 	XInput* _input;
 	int _model;
-	int _coolTime;
+	int _bulletCoolTime;
 	Quaternion cameraQuaternion;
 	Quaternion origin;
 	Vector3D _airplaneMoveSpeed;
 	Vector3D _perspectiveMoveSpeed;
 	class Camera* _camera;
 	bool isCameraBack;
+	bool isReload;
+	int _bulletNum;
+	int _reloadCoolTime;
+	int _fontHandle;
 };
 

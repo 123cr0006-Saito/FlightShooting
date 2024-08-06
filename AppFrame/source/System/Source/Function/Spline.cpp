@@ -69,7 +69,7 @@ Vector3D Spline::CubicSpline(const std::vector<Vector3D>& point, double time){
 	Vector3D p2 = point[segment + 2];
 	Vector3D p3 = point[segment + 3];
 
-	// 公式 : p(t) = (1 - t)^3 * p0 + 3(1 - t)^2 * t * p1 + 3(1 - t)t^2 * p2 + t^3 * p3
+	// 公式 : p(t) = (1 - t)^3 * p0 + 3 * (1 - t)^2 * t * p1 + 3 * (1 - t)t^2 * p2 + t^3 * p3
 	double t2 = t * t;
 	double t3 = t * t * t;
 
@@ -114,7 +114,7 @@ Vector3D Spline::BSpline(const std::vector<Vector3D>& point, int k, double time)
 		}
 	}
 
-	double t = Math::Max(0.0, Math::Min(0.999f, time)) * (n - k + 2);
+	double t = Math::Max(0.0, Math::Min(1.0, time)) * (n - k + 2);
 
 	Vector3D result;
 	for (int i = 0; i <= n; ++i) {
@@ -135,7 +135,7 @@ Vector3D Spline::CatmullRomSpline(const std::vector<Vector3D>& point, double tim
 #endif
 
 	// どのセグメントに属するかを決定
-	double t = Math::Clamp(0.0f, 0.999f, time) * (point.size() - 3);
+	double t = Math::Clamp(0.0f, 1.0f, time) * (point.size() - 3);
 	int segment = static_cast<int>(t);
 	t -= segment;
 
@@ -144,7 +144,12 @@ Vector3D Spline::CatmullRomSpline(const std::vector<Vector3D>& point, double tim
 	Vector3D p2 = point[segment + 2];
 	Vector3D p3 = point[segment + 3];
 
-	// 公式 : p(t) = 0.5((2p1) + (-p0 + p2)t + (2p0 - 5p1 + 4p2 - p3) * t^2 + (-p0 + 3p1 - 3p2 + p3) * t^3)
+	//f(1) = -0.5t^3 + t^2 - 0.5t        点P0の影響する。始点の接線に影響を与える
+	//f(2) = 1.5t^3 - 2.5t^2 + 1.0     点P1の影響する。始点と終点の接線に影響を与える t=0の時P1を通る
+	//f(3) = -1.5t^3 + 2.0t^2 + 0.5t  点P2の影響する。終点と始点の接線に影響を与える t=1の時P2を通る
+	//f(4) = 0.5t^3 - 0.5t^2              点P3の影響する。終点の接線に影響を与える
+
+	// 公式 : p(t) = 0.5 * ((2 * p1) + (-p0 + p2) * t + (2 * p0 - 5 * p1 + 4 * p2 - p3) * t^2 + (-p0 + 3 * p1 - 3 * p2 + p3) * t^3)
 	double t2 = t * t;
 	double t3 = t * t * t;
 

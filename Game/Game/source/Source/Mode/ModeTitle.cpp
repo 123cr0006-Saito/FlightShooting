@@ -21,6 +21,7 @@
 //----------------------------------------------------------------------
 ModeTitle::ModeTitle(){
 	_fontHandle = CreateFontToHandle("メイリオ",128,3, DX_FONTTYPE_EDGE);
+	global._soundServer->DirectPlay("BGM_Title");
 };
 //----------------------------------------------------------------------
 // @brief デストラクタ

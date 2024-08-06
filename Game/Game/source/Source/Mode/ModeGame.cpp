@@ -63,7 +63,6 @@ bool ModeGame::Initialize() {
 			
 		}
 	}
-	
 
 	_superManager->GetManager("objectManager")->AddInput(new Jet());
 
@@ -81,8 +80,6 @@ bool ModeGame::Initialize() {
 	MV1SetScale(skySphere, (Vector3D(1, 1, 1) * 2).toVECTOR());
 	SetCameraNearFar(1.0f, 1000000.0f);
 
-
-
 	return true;
 }
 //----------------------------------------------------------------------
@@ -94,6 +91,8 @@ bool ModeGame::Terminate() {
 	SuperManager::GetInstance()->GetManager("objectManager")->DelAll();
 	SuperManager::GetInstance()->GetManager("collisionManager")->DelAll();
 	SuperManager::GetInstance()->GetManager("uiManager")->DelAll();	
+	delete _timeLimit;
+	global._soundServer->StopType(SoundItemBase::TYPE::BGM);
 	return true;
 }
 //----------------------------------------------------------------------

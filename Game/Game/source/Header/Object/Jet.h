@@ -22,6 +22,7 @@ protected:
 	bool isReload;
 	int _bulletNum;
 	int _reloadCoolTime;
+	int _currentTime;
 	int _fontHandle;
 };
 

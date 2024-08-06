@@ -17,14 +17,18 @@ Jet::Jet() : ObjectBase("Jet") {
 	_model = MV1LoadModel("Res/jet.mv1");
 	isCameraBack = true;
 	_bulletCoolTime = 0;
+	_currentTime = 0;
 	_camera = new Camera((_pos - Vector3D(0,0,1) * 1500), _pos);
 	isReload = false;
+	_forwardVec = Vector3D(0, 0, 1);
 	_bulletNum = MAX_BULLET;
 	_fontHandle = CreateFontToHandle("ƒƒCƒŠƒI", 64, 3, DX_FONTTYPE_EDGE);
 };
 
 Jet::~Jet(){
-
+	delete _camera;
+	DeleteFontToHandle(_fontHandle);
+	MV1DeleteModel(_model);
 };
 
 void Jet::SetAcceleration(float& param, float input, int max){
@@ -52,15 +56,16 @@ bool Jet::Update(){
 	}
 
 	if (isReload) {
-		if (GetNowCount() - _reloadCoolTime > BULLET_RELOAD) {
+		if (GetNowCount() - _currentTime > _reloadCoolTime) {
 			isReload = false;
 			_bulletNum = MAX_BULLET;
 		}
 	}
 
-	if (_input->GetKey(XINPUT_BUTTON_B)) {
+	if (_input->GetKey(XINPUT_BUTTON_B) && _bulletNum < MAX_BULLET) {
 		if (!isReload) {
-			_reloadCoolTime = GetNowCount();
+			_currentTime = GetNowCount();
+			_reloadCoolTime = BULLET_RELOAD / 2;
 			isReload = true;
 		}
 	}
@@ -80,7 +85,8 @@ bool Jet::Update(){
 
 		if (_bulletNum <= 0) {
 			isReload = true;
-			_reloadCoolTime = GetNowCount();
+			_currentTime = GetNowCount();
+			_reloadCoolTime = BULLET_RELOAD;
 		}
 	}
 

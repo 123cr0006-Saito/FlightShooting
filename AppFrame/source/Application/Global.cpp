@@ -33,10 +33,11 @@ bool Global::SoundLoad() {
 	// ”ñ“¯Šú“Ç‚Ýž‚ÝÝ’è
 	SetUseASyncLoadFlag(true);
 	//BGM
-	//_soundServer->Add("BGM_Title", new SoundItemBGM(""));
+	_soundServer->Add("BGM_Title", new SoundItemBGM("Sound/BGM/Title.mp3"));
+	_soundServer->Add("BGM_Game", new SoundItemBGM("Sound/BGM/Game.mp3"));
 	//SE	
-	_soundServer->Add("SE_Gun", new SoundItemSE("Se/se_gun_fire05.mp3"));
-	_soundServer->Add("SE_Explosion", new SoundItemSE("Se/small_explosion2.mp3"));
+	_soundServer->Add("SE_Gun", new SoundItemSE("Sound/SE/se_gun_fire05.mp3"));
+	_soundServer->Add("SE_Explosion", new SoundItemSE("Sound/SE/small_explosion2.mp3"));
 
 	SetUseASyncLoadFlag(FALSE);
 	return true;
